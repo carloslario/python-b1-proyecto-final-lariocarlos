@@ -1,5 +1,5 @@
 #Write your code here
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod # para importar clases y funciones abstractas
 
 class FoodPackage (ABC): 
     @abstractmethod

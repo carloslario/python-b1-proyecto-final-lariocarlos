@@ -9,11 +9,17 @@ class Order:
 
   def add(self, product : Product):
     #Write your code here
+    #se añade cada producto a la lista
+    self.products.append(product)
     pass
 
   def calculateTotal(self) -> float:
     #Write your code here
-    pass
+    #Se calcula la factura total de los productos
+    suma = 0
+    for producto in self.products:
+      suma += producto.price
+    return suma
   
   def show(self):    
     print("Hello : "+self.customer.describe())

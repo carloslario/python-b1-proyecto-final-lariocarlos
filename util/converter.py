@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 #Write your code here
+import pandas as pd
+from users import *
+from products import *
 
 class Converter(ABC):
   @abstractmethod
@@ -12,12 +15,47 @@ class Converter(ABC):
 class CashierConverter(Converter):
   def convert(self,dataFrame):    
     #Write your code here
-    pass
+    cashiers = []
+    
+    for row in dataFrame.itertuples(index=False):
+      cashier = Cashier(row.name, row.dni, row.age, row.timetable, row.salary)
+      cashiers.append(cashier)
+    return cashiers
 
 class CustomerConverter(Converter):
   #Write your code here
-  pass
+  def convert(self,dataFrame):  
+    customers = []
+    
+    for row in dataFrame.itertuples(index=False):
+      customer = Customer(row.name, row.dni, row.age, row.timetable, row.salary)
+      customers.append(customer)
+    return customers
 
 class ProductConverter(Converter):
   #Write your code here
-  pass
+
+    def convert(self, dataFrame: pd.DataFrame, product_type: str) -> list:
+        products = []
+
+        for row in dataFrame.itertuples(index=False):
+
+            if product_type == "drink":
+                product = Drink(row.id, row.name, row.price)
+
+            elif product_type == "soda":
+                product = Soda(row.id, row.name, row.price, row.size)
+
+            elif product_type == "hamburger":
+                product = Hamburger(row.id, row.name, row.price)
+
+            elif product_type == "happy_meal":
+                product = HappyMeal(row.id, row.name, row.price)
+
+            else:
+                raise ValueError("Tipo de producto invalido")
+
+            products.append(product)
+
+        return products
+

@@ -4,7 +4,7 @@ class User(ABC):
   def __init__(self,dni:str,name:str,age:int):
     self.dni = dni
     self.name = name
-    self.age = age    
+    self.age = age
    
   @abstractmethod
   def describe(self):
@@ -16,7 +16,7 @@ class Cashier(User):
     super().__init__(dni, name,age)
     #se deben inicializar los atributos de la cashier (timeTable y salary)
     self.timeTable = timeTable
-    self.salary = salary      
+    self.salary = salary
  
   def describe(self):
         return f"Cashier - Name: {self.name}, DNI: {self.dni} , Timetable: {self.timeTable}, Salary: {self.salary}."
