@@ -137,12 +137,20 @@ def iniciar_orden(cashier,customer):
 
 def mostrar_productos():
  df_drinks = CSVFileManager("data/drinks.csv")
+ print(df_drinks)
+ df_hamburgers = CSVFileManager("data/hamburgers.csv")
+ print(df_hamburgers)
+ df_happyMeal = CSVFileManager("data/happyMeal.csv")
+ print(df_happyMeal)
+ df_sodas = CSVFileManager("data/sodas.csv")
+ print(df_sodas)
 
 class PrepareOrder:
  #Write your code here
-        def __init__(self):
-           pass
-def read_csv(self):
+ def __init__(self):
+      pass
+   
+ def read_csv(self):
         self.cashiersDF = CSVFileManager("data/cashiers.csv").read()
         self.customersDF = CSVFileManager("data/customers.csv").read()
         self.drinksDF = CSVFileManager("data/drinks.csv").read()
@@ -150,7 +158,7 @@ def read_csv(self):
         self.happyMealDF = CSVFileManager("data/happyMeal.csv").read()
         self.sodasDF = CSVFileManager("data/sodas.csv").read()
 
-def convertDataFrames(self):
+ def convertDataFrames(self):
         self.cashiers = CashierConverter().convert(self.cashiersDF)
         self.customers = CustomerConverter().convert(self.customersDF)
 
@@ -160,33 +168,51 @@ def convertDataFrames(self):
         self.products += ProductConverter().convert(self.happyMealDF)
         self.products += ProductConverter().convert(self.sodasDF)
 
-def buscar_cashier():
- DNI_cashier = int(input("Introduce DNI cashier: "))
- dt_cashiers = CSVFileManager("data/cashiers.csv")
- dt_cashiers = dt_cashiers.read()
- print(dt_cashiers)
- my_cashier = dt_cashiers[dt_cashiers["dni"] == DNI_cashier]
- print(my_cashier)
- obj_my_cashier = CashierConverter()
- lista_cashier = obj_my_cashier.convert(my_cashier)
- print(lista_cashier[0].describe())
- return lista_cashier[0]
+ def buscar_cashier(self):
+        DNI_cashier = int(input("Introduce DNI cashier: "))
+        dt_cashiers = CSVFileManager("data/cashiers.csv")
+        dt_cashiers = dt_cashiers.read()
+        print(dt_cashiers)
+        my_cashier = dt_cashiers[dt_cashiers["dni"] == DNI_cashier]
+        print(my_cashier)
+        obj_my_cashier = CashierConverter()
+        lista_cashier = obj_my_cashier.convert(my_cashier)
+        print(lista_cashier[0].describe())
+        return lista_cashier[0]
 
-def buscar_cliente():
- DNI_customer = int(input("Introduce DNI cliente: "))
- dt_customers = CSVFileManager("data/customers.csv")
- dt_customers = dt_customers.read()
- print(dt_customers)
- my_customer = dt_customers[dt_customers["dni"] == DNI_customer]
- print(my_customer)
- obj_my_customer = CustomerConverter()
- lista_customer = obj_my_customer.convert(my_customer)
- print(lista_customer[0].describe())
- return lista_customer[0]
+ def buscar_cliente(self):
+        DNI_customer = int(input("Introduce DNI cliente: "))
+        dt_customers = CSVFileManager("data/customers.csv")
+        dt_customers = dt_customers.read()
+        print(dt_customers)
+        my_customer = dt_customers[dt_customers["dni"] == DNI_customer]
+        print(my_customer)
+        obj_my_customer = CustomerConverter()
+        lista_customer = obj_my_customer.convert(my_customer)
+        print(lista_customer[0].describe())
+        return lista_customer[0]
 
+ def escoger_productos(self):
+        order = Order()
+        cont = True
+        opt = str(input("Escoge un producto: "))
+        while cont == True:
+                for producto in self.products:
+                        if producto.id == opt:
+                                product_order = producto
+                order.add(product_order)
+                cont = input("Quieres seguir? (Yes/No): ")
+                if cont.lower() == "yes":
+                     cont = True
+                else:
+                     cont = False
+        
+ def mostrar_orden(self):
+        order.show()
 pass 
 
 #buscar_cliente()
 #buscar_cashier()
-iniciar_orden(buscar_cashier(), buscar_cliente)
-mostrar_productos()
+#iniciar_orden(buscar_cashier(), buscar_cliente)
+#mostrar_productos()
+PrepareOrder.escoger_productos()
