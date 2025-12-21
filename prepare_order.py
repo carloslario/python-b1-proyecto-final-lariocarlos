@@ -105,7 +105,7 @@ f.	Agregar productos: Utilizar la instancia la clase 'Order', del paso c y llama
 from users import *
 from util import *
 from products import *
-from orders import *
+from orders.order import Order
 from time import sleep
 
 class PrepareOrder:
@@ -165,7 +165,8 @@ class PrepareOrder:
        print(self.cashiersDF)
        print("\n------------------------------------------------------")
        sleep(1)
-       DNI_cajero = input("Introduce el DNI del cajero: ")
+       #DNI_cajero = input("Introduce el DNI del cajero: ")
+       DNI_cajero = "5001"
        sleep(1)
        while DNI_cajero not in self.cashiersDF["dni"].astype(str).values:
              print(self.cashiersDF)
@@ -179,14 +180,15 @@ class PrepareOrder:
        #2. Se selecciona el cliente
        print(self.customersDF)
        print("\n------------------------------------------------------")
-       sleep(1)
-       DNI_cliente = input("Introduce el DNI del cliente: ")
+
+       #DNI_cliente = input("Introduce el DNI del cliente: ")
+       DNI_cliente = "1001"
        sleep(1)
        while DNI_cliente not in self.customersDF["dni"].astype(str).values:
              print(self.customersDF)
-             sleep(1)
+
              DNI_cliente = str(input("DNI invalido. Introduce el DNI del cliente: "))
-             sleep(1)
+
        self.dt_filtrado = self.customersDF[self.customersDF["dni"].astype(str) == DNI_cliente]
 
        cliente_lista = CustomerConverter().convert(self.dt_filtrado)
@@ -195,40 +197,42 @@ class PrepareOrder:
 
        #3. Se crea la orden
        self.menu_products()
-       order = Order(cajero_obj,customer_obj)
+       self.order = Order(cajero_obj,customer_obj)
        add_product = True
        lista_pedido = []
        while add_product:
-            prod_id = input("Introduce ID de producto: ")
-            sleep(1)
+            #prod_id = input("Introduce ID de producto: ")
+            prod_id = "G1"
+
             while prod_id not in self.productsDF["id"].astype(str).values:
-                sleep(1)
+
                 prod_id = str(input("ID de producto invalido. Introduce el Id del producto: "))
-                sleep(1)
+
             lista_pedido.append(prod_id)
             print(f"Producto {prod_id} añadido.\n")
             add_product = input("Añadir otro producto? (1: Si/ Otro: No): ")
-            sleep(1)
+
             if add_product.lower() != "1":
                  add_product = False
        
        #4. Se muestra el pedido completo
-       print("\n------------------------------------------------------")
-       print("El pedido::")
+       print("                         PEDIDO")
+       print("------------------------------------------------------")
        for item in lista_pedido:
-        print(item)
-        sleep(0.5)
-       print("\n------------------------------------------------------")
+            print(item)
+       print("------------------------------------------------------")
 
        #5. Se calcula el pedido completo
-       self.pedido_obj = []
+       self.lista_pedido_obj = []
+       print(lista_pedido)
 
        for item in lista_pedido:
-        prod_filtrado = self.productsDF[self.productsDF["id"].astype(str) == item] #DF
-        prod_obj = ProductConverter().convert(prod_filtrado)
-        self.pedido_obj.append(prod_obj)
-        order.add(prod_obj)
-
-        order.show()
+            prod_filtrado = self.productsDF[self.productsDF["id"].astype(str) == item]  # DataFrame filtrado
+            prod_instance = ProductConverter().convert(prod_filtrado)  # UNA instancia
+            #print(prod_instance.id)
+            self.order.add(prod_instance)
+            self.lista_pedido_obj.append(prod_instance)
+            
+       self.order.show()
        
 PrepareOrder().main()

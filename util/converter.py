@@ -36,27 +36,16 @@ class CustomerConverter(Converter):
 class ProductConverter(Converter):
   #Write your code here
 
- def convert(self, dataFrame: pd.DataFrame) -> list: 
-  product = [] 
+ def convert(self, dataFrame: pd.DataFrame):  
+    row = dataFrame.iloc[0]
 
-  #Para tipo bebidas 
-  if "B" in dataFrame["id"]: 
-   for row in dataFrame.itertuples(index=False): 
-     product = Drink(row.id, row.name, row.price) 
-
- #Para tipo hamburgesas 
-  if "H" in dataFrame["id"]: 
-   for row in dataFrame.itertuples(index=False): 
-    product = Hamburger(row.id, row.name, row.price) 
-
-#Para tipo sodas 
-  if "G" in dataFrame["id"]: 
-   for row in dataFrame.itertuples(index=False): 
-    product = Soda(row.id, row.name, row.price)
-
- #Para tipo Happy Meal 
-  if "HM" in dataFrame["id"]: 
-   for row in dataFrame.itertuples(index=False): 
-    product = HappyMeal(row.id, row.name, row.price) 
-
-  return product
+    if str(row.id).startswith("B"):
+        return Drink(row.id, row.name, row.price)
+    elif str(row.id).startswith("H"):
+        return Hamburger(row.id, row.name, row.price)
+    elif str(row.id).startswith("G"):
+        return Soda(row.id, row.name, row.price)
+    elif str(row.id).startswith("HM"):
+        return HappyMeal(row.id, row.name, row.price)
+    else:
+        raise ValueError(f"ID de producto desconocido: {row.id}")
