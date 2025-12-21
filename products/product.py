@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 #Write your code here
-from food_package import *
+from products.food_package import *
 
 class Product(ABC):
     def __init__(self,id:str,name:str,price:float):

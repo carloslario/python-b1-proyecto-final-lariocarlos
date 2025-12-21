@@ -31,3 +31,11 @@ class Customer(User):
 
   def describe(self):
         return f"Customer - Name: {self.name}, DNI: {self.dni} , Age: {self.age}, Email: {self.email}, Postal Code: {self.postalCode}"
+
+""""
+Ana = Cashier("1234D","Ana",26,"9-14",1500)
+print(Ana.describe())
+
+Juan = Customer("56789A","Juan",26,"juan@gmail.com","46004")
+print(Juan.describe())
+"""

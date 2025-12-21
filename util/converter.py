@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 #Write your code here
 import pandas as pd
-from users import *
-from products import *
+from users.user import User , Customer , Cashier
+from products.product import Hamburger, HappyMeal, Drink, Soda
+from util.file_manager import CSVFileManager
 
 class Converter(ABC):
   @abstractmethod
@@ -17,9 +18,9 @@ class CashierConverter(Converter):
     #Write your code here
     cashiers = []
     
-    for row in dataFrame.itertuples(index=False):
-      cashier = Cashier(row.name, row.dni, row.age, row.timetable, row.salary)
-      cashiers.append(cashier)
+    for row in dataFrame.itertuples(index=False, name=None):
+        cashier = Cashier(row[0], row[1], row[2], row[3], row[4])
+        cashiers.append(cashier)
     return cashiers
 
 class CustomerConverter(Converter):
@@ -28,7 +29,7 @@ class CustomerConverter(Converter):
     customers = []
     
     for row in dataFrame.itertuples(index=False):
-      customer = Customer(row.name, row.dni, row.age, row.timetable, row.salary)
+      customer = Customer(row.name, row.dni, row.age, row.email, row.postalcode)
       customers.append(customer)
     return customers
 
@@ -59,3 +60,8 @@ class ProductConverter(Converter):
 
         return products
 
+""""
+dt = CSVFileManager("data/happyMeal.csv")
+dt_r = dt.read()
+print(dt_r['id'])
+"""

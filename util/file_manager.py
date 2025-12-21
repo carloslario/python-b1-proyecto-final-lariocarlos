@@ -9,7 +9,3 @@ class CSVFileManager:
     #La función 'def write(self, dataFrame)' convierte un Data Frame en un archivo CSV. 
     # Esta es una función opcional, se deja al estudiante la implementación.
     pass
-
-dt = CSVFileManager("data/happyMeal.csv")
-dt_r = dt.read()
-print(dt_r['id'])

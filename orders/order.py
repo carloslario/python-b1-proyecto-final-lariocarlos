@@ -1,5 +1,6 @@
-from users import *
-from products import *
+from users.user import Cashier , Customer
+from products.product import Drink, Hamburger, Soda, HappyMeal, Product
+from products.food_package import Wrapping, Glass, Bottle,Box
 
 class Order:
   def __init__(self, cashier:Cashier, customer:Customer):
@@ -27,3 +28,4 @@ class Order:
     for product in self.products:
       print(product.describe())
     print(f"Total price : {self.calculateTotal()}")
+
