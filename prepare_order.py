@@ -164,10 +164,9 @@ class PrepareOrder:
        #1. Se selecciona el cajero
        print(self.cashiersDF)
        print("\n------------------------------------------------------")
-       sleep(1)
-       #DNI_cajero = input("Introduce el DNI del cajero: ")
-       DNI_cajero = "5001"
-       sleep(1)
+       sleep(0.5)
+       DNI_cajero = input("Introduce el DNI del cajero: ")
+       sleep(0.5)
        while DNI_cajero not in self.cashiersDF["dni"].astype(str).values:
              print(self.cashiersDF)
              DNI_cajero = str(input("DNI invalido. Introduce el DNI del cajero: "))
@@ -180,15 +179,12 @@ class PrepareOrder:
        #2. Se selecciona el cliente
        print(self.customersDF)
        print("\n------------------------------------------------------")
-
-       #DNI_cliente = input("Introduce el DNI del cliente: ")
-       DNI_cliente = "1001"
-       sleep(1)
+       sleep(0.5)
+       DNI_cliente = input("Introduce el DNI del cliente: ")
+       sleep(0.5)
        while DNI_cliente not in self.customersDF["dni"].astype(str).values:
              print(self.customersDF)
-
              DNI_cliente = str(input("DNI invalido. Introduce el DNI del cliente: "))
-
        self.dt_filtrado = self.customersDF[self.customersDF["dni"].astype(str) == DNI_cliente]
 
        cliente_lista = CustomerConverter().convert(self.dt_filtrado)
@@ -201,8 +197,7 @@ class PrepareOrder:
        add_product = True
        lista_pedido = []
        while add_product:
-            #prod_id = input("Introduce ID de producto: ")
-            prod_id = "G1"
+            prod_id = input("Introduce ID de producto: ")
 
             while prod_id not in self.productsDF["id"].astype(str).values:
 
