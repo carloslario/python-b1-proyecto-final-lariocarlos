@@ -36,32 +36,27 @@ class CustomerConverter(Converter):
 class ProductConverter(Converter):
   #Write your code here
 
-    def convert(self, dataFrame: pd.DataFrame, product_type: str) -> list:
-        products = []
+ def convert(self, dataFrame: pd.DataFrame) -> list: 
+  product = [] 
 
-        for row in dataFrame.itertuples(index=False):
+  #Para tipo bebidas 
+  if "B" in dataFrame["id"]: 
+   for row in dataFrame.itertuples(index=False): 
+     product = Drink(row.id, row.name, row.price) 
 
-            if product_type == "drink":
-                product = Drink(row.id, row.name, row.price)
+ #Para tipo hamburgesas 
+  if "H" in dataFrame["id"]: 
+   for row in dataFrame.itertuples(index=False): 
+    product = Hamburger(row.id, row.name, row.price) 
 
-            elif product_type == "soda":
-                product = Soda(row.id, row.name, row.price, row.size)
+#Para tipo sodas 
+  if "G" in dataFrame["id"]: 
+   for row in dataFrame.itertuples(index=False): 
+    product = Soda(row.id, row.name, row.price)
 
-            elif product_type == "hamburger":
-                product = Hamburger(row.id, row.name, row.price)
+ #Para tipo Happy Meal 
+  if "HM" in dataFrame["id"]: 
+   for row in dataFrame.itertuples(index=False): 
+    product = HappyMeal(row.id, row.name, row.price) 
 
-            elif product_type == "happy_meal":
-                product = HappyMeal(row.id, row.name, row.price)
-
-            else:
-                raise ValueError("Tipo de producto invalido")
-
-            products.append(product)
-
-        return products
-
-""""
-dt = CSVFileManager("data/happyMeal.csv")
-dt_r = dt.read()
-print(dt_r['id'])
-"""
+  return product

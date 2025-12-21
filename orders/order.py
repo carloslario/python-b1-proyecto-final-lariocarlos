@@ -2,6 +2,7 @@ from users.user import Cashier , Customer
 from products.product import Drink, Hamburger, Soda, HappyMeal, Product
 from products.food_package import Wrapping, Glass, Bottle,Box
 
+
 class Order:
   def __init__(self, cashier:Cashier, customer:Customer):
     self.cashier = cashier
